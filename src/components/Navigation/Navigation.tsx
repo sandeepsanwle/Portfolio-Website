@@ -1,18 +1,22 @@
 import { AppBar, Toolbar, Container, Button, Box, IconButton, Drawer, List, ListItem, ListItemButton, ListItemText } from '@mui/material';
-import { Menu as MenuIcon } from '@mui/icons-material';
+import { Menu as MenuIcon, Brightness4, Brightness7 } from '@mui/icons-material';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+
+interface NavigationProps {
+  mode: 'light' | 'dark';
+  toggleTheme: () => void;
+}
 
 const navItems = [
   { label: 'Home', href: 'home' },
   { label: 'Skills', href: 'skills' },
   { label: 'Experience', href: 'experience' },
-  { label: 'Education', href: 'education' },
   { label: 'Projects', href: 'projects' },
   { label: 'Contact', href: 'contact' },
 ];
 
-const Navigation = () => {
+const Navigation = ({ mode, toggleTheme }: NavigationProps) => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleDrawerToggle = () => {
@@ -77,32 +81,79 @@ const Navigation = () => {
               </Button>
             </motion.div>
 
-            <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 1 }}>
+            <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 1, alignItems: 'center' }}>
               {navItems.map((item) => (
-                <Button
+                <motion.div
                   key={item.label}
-                  onClick={() => scrollToSection(item.href)}
-                  sx={{
-                    color: 'white',
-                    '&:hover': {
-                      color: 'primary.main',
-                    },
-                  }}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                 >
-                  {item.label}
-                </Button>
+                  <Button
+                    onClick={() => scrollToSection(item.href)}
+                    sx={{
+                      color: 'text.primary',
+                      position: 'relative',
+                      '&:hover': {
+                        color: 'primary.main',
+                      },
+                      '&::after': {
+                        content: '""',
+                        position: 'absolute',
+                        width: '0%',
+                        height: '2px',
+                        bottom: 0,
+                        left: '50%',
+                        backgroundColor: 'primary.main',
+                        transition: 'all 0.3s ease',
+                        transform: 'translateX(-50%)',
+                      },
+                      '&:hover::after': {
+                        width: '80%',
+                      },
+                    }}
+                  >
+                    {item.label}
+                  </Button>
+                </motion.div>
               ))}
+              
+              <IconButton
+                onClick={toggleTheme}
+                color="inherit"
+                sx={{
+                  ml: 1,
+                  color: 'text.primary',
+                  transition: 'transform 0.3s ease',
+                  '&:hover': {
+                    transform: 'rotate(180deg)',
+                    color: 'primary.main',
+                  },
+                }}
+              >
+                {mode === 'dark' ? <Brightness7 /> : <Brightness4 />}
+              </IconButton>
             </Box>
 
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              edge="start"
-              onClick={handleDrawerToggle}
-              sx={{ display: { md: 'none' } }}
-            >
-              <MenuIcon />
-            </IconButton>
+            <Box sx={{ display: { xs: 'flex', md: 'none' }, gap: 1 }}>
+              <IconButton
+                onClick={toggleTheme}
+                color="inherit"
+                sx={{
+                  color: 'text.primary',
+                }}
+              >
+                {mode === 'dark' ? <Brightness7 /> : <Brightness4 />}
+              </IconButton>
+              
+              <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                onClick={handleDrawerToggle}
+                sx={{ color: 'text.primary' }}
+              >
+                <MenuIcon />
+              </IconButton>
+            </Box>
           </Toolbar>
         </Container>
       </AppBar>
