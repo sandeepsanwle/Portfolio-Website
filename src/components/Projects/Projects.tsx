@@ -1,11 +1,10 @@
-import { Box, Container, Typography, Grid, Card, CardContent, Chip, Stack } from '@mui/material';
+import { Box, Container, Typography, Grid, Card, CardContent, Chip, Stack, Button } from '@mui/material';
 import { motion } from 'framer-motion';
-import { Code } from '@mui/icons-material';
+import { Code, Launch } from '@mui/icons-material';
 
 const projects = [
   {
     title: 'JOB-PORTAL',
-    duration: 'Jul 2023 - Dec 2023',
     technologies: ['Angular', 'Angular Material', 'ExpressJs', 'MySQL', 'Git'],
     description: 'Developed a robust job-portal system connecting job seekers and employers.',
     responsibilities: [
@@ -16,7 +15,6 @@ const projects = [
   },
   {
     title: 'MEDICAL WRITING',
-    duration: 'Mar 2024 - Oct 2024',
     technologies: ['Angular', 'Angular Material', 'Express', 'NestJs', 'PostgreSQL', 'Git'],
     description: 'Automated end-to-end medical documentation workflows required for drug-approval processes.',
     responsibilities: [
@@ -27,7 +25,6 @@ const projects = [
   },
   {
     title: 'DYNAMIC FEEDBACK | @Korn Ferry',
-    duration: 'Jan 2025 - Present',
     technologies: ['ReactJs', 'Zustand', 'Material UI', 'Nodejs', 'ExpressJs', 'MySQL', 'Git', 'Docker'],
     description: 'Contributed to the enhancement and optimization of Korn Ferry\'s Dynamic Feedback platform — a system designed to collect, organize, and analyze performance feedback securely across organizational levels.',
     responsibilities: [
@@ -41,47 +38,132 @@ const projects = [
 
 const Projects = () => {
   return (
-    <Box id="projects" sx={{ py: 10, bgcolor: 'background.paper' }}>
-      <Container maxWidth="lg">
+    <Box
+      id="projects"
+      sx={{
+        py: 12,
+        bgcolor: 'background.paper',
+        position: 'relative',
+        overflow: 'hidden',
+      }}
+    >
+      {/* subtle background accents */}
+      <Box
+        sx={{
+          position: 'absolute',
+          inset: 0,
+          background: `
+            radial-gradient(60% 40% at 20% 0%, rgba(0, 188, 212, 0.08) 0%, rgba(0,0,0,0) 60%),
+            radial-gradient(50% 35% at 85% 20%, rgba(63, 81, 181, 0.08) 0%, rgba(0,0,0,0) 60%)
+          `,
+          pointerEvents: 'none',
+        }}
+      />
+      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <Typography variant="h2" sx={{ mb: 6, textAlign: 'center' }}>
-            Projects
-          </Typography>
+          <Box sx={{ textAlign: 'center', mb: 8 }}>
+            <Typography
+              variant="h2"
+              sx={{
+                mb: 2,
+                background: 'linear-gradient(135deg, #00bcd4 0%, #3f51b5 100%)',
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                fontWeight: 800,
+              }}
+            >
+              Projects
+            </Typography>
+            <Typography variant="body1" color="text.secondary">
+              Selected work showcasing engineering, UI, and scalability.
+            </Typography>
+          </Box>
 
-          <Grid container spacing={4}>
+          <Grid container spacing={4} alignItems="stretch">
             {projects.map((project, index) => (
-              <Grid size={{ xs: 12 }} key={project.title}>
+              <Grid size={{ xs: 12, md: 6 }} key={project.title}>
                 <motion.div
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: index * 0.2 }}
+                  transition={{ duration: 0.6, delay: index * 0.15 }}
+                  whileHover={{ y: -8 }}
                 >
                   <Card
                     sx={{
-                      background: 'linear-gradient(135deg, rgba(0, 188, 212, 0.05) 0%, rgba(63, 81, 181, 0.05) 100%)',
-                      border: '1px solid rgba(0, 188, 212, 0.2)',
-                      transition: 'transform 0.3s ease-in-out',
+                      height: '100%',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      position: 'relative',
+                      overflow: 'hidden',
+                      background: (theme) =>
+                        theme.palette.mode === 'dark'
+                          ? 'linear-gradient(135deg, rgba(22, 25, 50, 0.8) 0%, rgba(15, 19, 40, 0.8) 100%)'
+                          : 'linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.85) 100%)',
+                      border: (theme) =>
+                        `1px solid ${
+                          theme.palette.mode === 'dark'
+                            ? 'rgba(0, 188, 212, 0.25)'
+                            : 'rgba(0, 188, 212, 0.18)'
+                        }`,
+                      boxShadow: (theme) =>
+                        theme.palette.mode === 'dark'
+                          ? '0 18px 40px rgba(0, 188, 212, 0.18)'
+                          : '0 18px 40px rgba(0, 188, 212, 0.12)',
+                      transition: 'all 0.35s ease',
                       '&:hover': {
-                        transform: 'translateY(-10px)',
+                        transform: 'translateY(-8px)',
+                        borderColor: (theme) =>
+                          theme.palette.mode === 'dark'
+                            ? 'rgba(0, 188, 212, 0.4)'
+                            : 'rgba(0, 188, 212, 0.3)',
+                      },
+                      '&::before': {
+                        content: '""',
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        height: 4,
+                        background: 'linear-gradient(135deg, #00bcd4 0%, #3f51b5 100%)',
                       },
                     }}
                   >
-                    <CardContent sx={{ p: 4 }}>
+                    <CardContent
+                      sx={{
+                        p: 4,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: 2,
+                        flexGrow: 1,
+                      }}
+                    >
                       <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                        <Code sx={{ color: 'primary.main', mr: 2 }} />
-                        <Typography variant="h4">
+                        <Box
+                          sx={{
+                            display: 'inline-flex',
+                            p: 1.25,
+                            borderRadius: 2,
+                            bgcolor: 'rgba(0, 188, 212, 0.12)',
+                            color: 'primary.main',
+                            mr: 2,
+                          }}
+                        >
+                          <Code />
+                        </Box>
+                        <Typography variant="h4" sx={{ fontWeight: 800 }}>
                           {project.title}
                         </Typography>
                       </Box>
 
-                      <Typography variant="body2" color="primary" sx={{ mb: 2 }}>
-                        {project.duration}
+                      <Typography variant="body1" sx={{ mb: 2, fontWeight: 600 }}>
+                        {project.description}
                       </Typography>
 
                       <Stack direction="row" spacing={1} sx={{ mb: 3, flexWrap: 'wrap', gap: 1 }}>
@@ -99,27 +181,44 @@ const Projects = () => {
                         ))}
                       </Stack>
 
-                      <Typography variant="body1" sx={{ mb: 2, fontWeight: 600 }}>
-                        {project.description}
-                      </Typography>
-
                       <Typography variant="body2" color="text.secondary" sx={{ mb: 1, fontWeight: 600 }}>
                         Key Responsibilities:
                       </Typography>
 
-                      <Box component="ul" sx={{ pl: 2 }}>
+                      <Box component="ul" sx={{ pl: 2, mb: 'auto' }}>
                         {project.responsibilities.map((resp, idx) => (
                           <Typography
                             key={idx}
                             component="li"
                             variant="body2"
                             color="text.secondary"
-                            sx={{ mb: 1 }}
+                            sx={{ mb: 0.75 }}
                           >
                             {resp}
                           </Typography>
                         ))}
                       </Box>
+
+                      <Stack direction="row" spacing={1.5} sx={{ mt: 'auto' }}>
+                        {/* <Button
+                          variant="contained"
+                          size="small"
+                          endIcon={<Launch />}
+                          sx={{
+                            background: 'linear-gradient(135deg, #00bcd4 0%, #3f51b5 100%)',
+                            boxShadow: '0 6px 24px rgba(0, 188, 212, 0.35)',
+                            fontWeight: 700,
+                            '&:hover': {
+                              boxShadow: '0 10px 30px rgba(0, 188, 212, 0.5)',
+                            },
+                          }}
+                        >
+                          Case Study
+                        </Button> */}
+                        <Button variant="outlined" size="small">
+                          View Code
+                        </Button>
+                      </Stack>
                     </CardContent>
                   </Card>
                 </motion.div>
