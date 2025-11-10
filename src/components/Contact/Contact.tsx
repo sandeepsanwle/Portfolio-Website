@@ -2,6 +2,7 @@ import { Box, Container, Typography, TextField, Button, Grid, Card, CardContent 
 import { motion } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import { Send } from '@mui/icons-material';
+import emailjs from '@emailjs/browser';
 import { toast } from 'sonner';
 
 interface ContactFormData {
@@ -9,6 +10,10 @@ interface ContactFormData {
   email: string;
   message: string;
 }
+
+const SERVICE_ID = 'service_8e52vojj';
+const TEMPLATE_ID = 'template_0uexxfc';
+const PUBLIC_KEY = 'RFQ-cA1wT8sO58l-S';
 
 const Contact = () => {
   const {
@@ -18,10 +23,23 @@ const Contact = () => {
     formState: { errors },
   } = useForm<ContactFormData>();
 
-  const onSubmit = (data: ContactFormData) => {
-    console.log('Form submitted:', data);
-    toast.success('Message sent successfully! I will get back to you soon.');
-    reset();
+  // const onSubmit = (data: ContactFormData) => {
+  //   console.log('Form submitted:', data);
+  //   toast.success('Message sent successfully! I will get back to you soon.');
+  //   reset();
+  // };
+
+  const onSubmit = async (data) => {
+    try {
+      // Send using EmailJS
+      await emailjs.send(SERVICE_ID, TEMPLATE_ID, data, PUBLIC_KEY);
+
+      toast.success('Message sent successfully! I will get back to you soon.');
+      reset();
+    } catch (error) {
+      console.error('EmailJS error:', error);
+      toast.error('Failed to send message. Please try again later.');
+    }
   };
 
   return (
