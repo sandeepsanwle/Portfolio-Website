@@ -1,73 +1,86 @@
-# Welcome to your Lovable project
+# Sandeep Sanwle - Portfolio
 
-## Project info
+A modern, responsive portfolio website showcasing my work as a Full Stack Developer.
 
-**URL**: https://lovable.dev/projects/405ba9cc-d33f-4b7a-b2f4-20e83ae318b1
+## Technologies Used
 
-## How can I edit this code?
+- **React 18** - UI library
+- **TypeScript** - Type-safe JavaScript
+- **Vite** - Fast build tool and dev server
+- **Material-UI (MUI)** - Component library
+- **Framer Motion** - Animation library
+- **React Router** - Client-side routing
+- **React Hook Form** - Form validation
+- **TanStack Query** - Data fetching and caching
+- **Sonner** - Toast notifications
+- **Canvas Confetti** - Celebration animations
 
-There are several ways of editing your application.
+## Getting Started
 
-**Use Lovable**
+### Prerequisites
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/405ba9cc-d33f-4b7a-b2f4-20e83ae318b1) and start prompting.
+- Node.js (v18 or higher)
+- npm or yarn
 
-Changes made via Lovable will be committed automatically to this repo.
+### Installation
 
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
+1. Clone the repository:
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+git clone <repository-url>
+```
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+2. Navigate to the project directory:
+```sh
+cd clever-react-code
+```
 
-# Step 3: Install the necessary dependencies.
-npm i
+3. Install dependencies:
+```sh
+npm install
+```
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+4. Start the development server:
+```sh
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+The application will be available at `http://localhost:8080`
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Available Scripts
 
-**Use GitHub Codespaces**
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run build:dev` - Build in development mode
+- `npm run preview` - Preview production build
+- `npm run lint` - Run ESLint
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Project Structure
 
-## What technologies are used for this project?
+```
+src/
+├── components/     # Reusable React components
+├── pages/         # Page components
+├── assets/        # Static assets (images, etc.)
+├── hooks/         # Custom React hooks
+└── main.tsx       # Application entry point
+```
 
-This project is built with:
+## Features
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+- 🎨 Modern, responsive design
+- 🌓 Dark/Light theme toggle
+- ✨ Smooth animations and transitions
+- 📱 Mobile-first approach
+- 🚀 Optimized performance
+- 📧 Contact form with validation
+- 🎉 Interactive UI elements
 
-## How can I deploy this project?
+## License
 
-Simply open [Lovable](https://lovable.dev/projects/405ba9cc-d33f-4b7a-b2f4-20e83ae318b1) and click on Share -> Publish.
+This project is private and proprietary.
 
-## Can I connect a custom domain to my Lovable project?
+## Contact
 
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+Sandeep Sanwle
+- Email: sandeepsanwle74@gmail.com
+- LinkedIn: [linkedin.com/in/sandeepsanwle](https://www.linkedin.com/in/sandeepsanwle)
