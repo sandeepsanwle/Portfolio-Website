@@ -35,6 +35,7 @@ const Index = () => {
             primary: mode === 'dark' ? '#ffffff' : '#1a1a1a',
             secondary: mode === 'dark' ? '#b0bec5' : '#546e7a',
           },
+          divider: mode === 'dark' ? 'rgba(0, 188, 212, 0.1)' : 'rgba(0, 0, 0, 0.1)',
         },
         typography: {
           fontFamily: '"Inter", "Roboto", "Helvetica", "Arial", sans-serif',

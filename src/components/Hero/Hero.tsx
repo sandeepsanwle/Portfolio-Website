@@ -1,8 +1,9 @@
-import { Box, Container, Typography, Button, Stack } from '@mui/material';
+import { Box, Container, Typography, Button, Stack, CircularProgress } from '@mui/material';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Email, LinkedIn } from '@mui/icons-material';
+import { Email, LinkedIn, Download } from '@mui/icons-material';
 import heroBg from '@/assets/hero-bg.jpg';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import confetti from 'canvas-confetti';
 
 const roles = [
   'Frontend Developer',
@@ -15,6 +16,8 @@ const roles = [
 
 const Hero = () => {
   const [currentRole, setCurrentRole] = useState(0);
+  const [isDownloading, setIsDownloading] = useState(false);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -22,6 +25,51 @@ const Hero = () => {
     }, 2500);
     return () => clearInterval(interval);
   }, []);
+
+  const triggerConfetti = () => {
+    if (!buttonRef.current) return;
+
+    const rect = buttonRef.current.getBoundingClientRect();
+    const x = (rect.left + rect.width / 2) / window.innerWidth;
+    const y = (rect.top + rect.height / 2) / window.innerHeight;
+
+    // Simple, professional single burst
+    confetti({
+      particleCount: 50,
+      angle: 90,
+      spread: 70,
+      origin: { x, y },
+      colors: ['#00bcd4', '#3f51b5', '#667eea'],
+      ticks: 60,
+      gravity: 1.2,
+      decay: 0.94,
+      startVelocity: 25,
+      zIndex: 9999,
+    });
+  };
+
+  const handleDownloadResume = async () => {
+    try {
+      setIsDownloading(true);
+      
+      // Create a temporary link element
+      const link = document.createElement('a');
+      link.href = 'https://drive.google.com/uc?export=download&id=1WdV-uLrUa3ojbXiL7j-sdFiUx0_0ov3S';
+      link.download = 'Sandeep_Sanwle_Resume.pdf';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      
+      // Trigger confetti animation
+      setTimeout(() => {
+        setIsDownloading(false);
+        triggerConfetti();
+      }, 500);
+    } catch (error) {
+      setIsDownloading(false);
+      console.error('Download error:', error);
+    }
+  };
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -152,6 +200,39 @@ const Hero = () => {
                   }}
                 >
                   View Projects
+                </Button>
+              </motion.div>
+
+              <motion.div 
+                whileHover={{ scale: 1.05, y: -5 }} 
+                whileTap={{ scale: 0.95 }}
+                transition={{ type: 'spring', stiffness: 400 }}
+              >
+                <Button
+                  ref={buttonRef}
+                  variant="outlined"
+                  size="large"
+                  onClick={handleDownloadResume}
+                  disabled={isDownloading}
+                  startIcon={isDownloading ? <CircularProgress size={20} /> : <Download />}
+                  sx={{
+                    borderWidth: 2,
+                    borderColor: 'primary.main',
+                    color: 'primary.main',
+                    '&:hover': {
+                      borderWidth: 2,
+                      borderColor: 'primary.light',
+                      boxShadow: '0 4px 20px rgba(0, 188, 212, 0.4)',
+                      background: 'rgba(0, 188, 212, 0.1)',
+                    },
+                    '&.Mui-disabled': {
+                      borderColor: 'primary.main',
+                      color: 'primary.main',
+                      opacity: 0.7,
+                    },
+                  }}
+                >
+                  {isDownloading ? 'Downloading...' : 'Download Resume'}
                 </Button>
               </motion.div>
             </Stack>
