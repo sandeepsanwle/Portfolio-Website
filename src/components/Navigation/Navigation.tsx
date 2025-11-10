@@ -35,6 +35,8 @@ const navItems = [
 const Navigation = ({ mode, toggleTheme }: NavigationProps) => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const [scrolled, setScrolled] = useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -43,6 +45,7 @@ const Navigation = ({ mode, toggleTheme }: NavigationProps) => {
       const sections = navItems.map(item => item.href);
       const scrollPosition = window.scrollY + 100;
 
+      // Active section tracking
       for (let i = sections.length - 1; i >= 0; i--) {
         const element = document.getElementById(sections[i]);
         if (element && element.offsetTop <= scrollPosition) {
@@ -50,9 +53,18 @@ const Navigation = ({ mode, toggleTheme }: NavigationProps) => {
           break;
         }
       }
+
+      // Scroll progress and scrolled state
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const progress = docHeight > 0 ? Math.min(100, Math.max(0, (scrollTop / docHeight) * 100)) : 0;
+      setScrollProgress(progress);
+      setScrolled(scrollTop > 8);
     };
 
     window.addEventListener('scroll', handleScroll);
+    // Initialize on mount
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -120,7 +132,30 @@ const Navigation = ({ mode, toggleTheme }: NavigationProps) => {
           </ListItem>
         ))}
       </List>
-      <Box sx={{ p: 2, borderTop: '1px solid', borderColor: 'divider' }}>
+      <Box sx={{ p: 2, borderTop: '1px solid', borderColor: 'divider', display: 'grid', gap: 1.25 }}>
+        <Button
+          variant="contained"
+          onClick={() => scrollToSection('contact')}
+          sx={{
+            background: 'linear-gradient(135deg, #00bcd4 0%, #3f51b5 100%)',
+            color: 'white',
+            fontWeight: 700,
+            py: 1.25,
+            boxShadow: '0 4px 20px rgba(0, 188, 212, 0.4)',
+            '&:hover': {
+              boxShadow: '0 6px 30px rgba(0, 188, 212, 0.6)',
+            },
+          }}
+        >
+          Hire Me
+        </Button>
+        <Button
+          variant="outlined"
+          onClick={() => scrollToSection('projects')}
+          sx={{ py: 1.25, fontWeight: 700 }}
+        >
+          View Projects
+        </Button>
         <Button
           fullWidth
           onClick={toggleTheme}
@@ -144,11 +179,16 @@ const Navigation = ({ mode, toggleTheme }: NavigationProps) => {
         elevation={0}
         sx={{
           bgcolor: mode === 'dark' 
-            ? 'rgba(10, 14, 39, 0.85)' 
-            : 'rgba(255, 255, 255, 0.85)',
+            ? (scrolled ? 'rgba(10, 14, 39, 0.92)' : 'rgba(10, 14, 39, 0.85)') 
+            : (scrolled ? 'rgba(255, 255, 255, 0.95)' : 'rgba(255, 255, 255, 0.85)'),
           backdropFilter: 'blur(20px)',
           borderBottom: `1px solid ${mode === 'dark' ? 'rgba(0, 188, 212, 0.1)' : 'rgba(0, 0, 0, 0.1)'}`,
           transition: 'all 0.3s ease',
+          boxShadow: scrolled 
+            ? (mode === 'dark' 
+                ? '0 8px 24px rgba(0, 188, 212, 0.12)' 
+                : '0 8px 24px rgba(0, 0, 0, 0.08)') 
+            : 'none',
         }}
       >
         <Container maxWidth="lg">
@@ -168,91 +208,84 @@ const Navigation = ({ mode, toggleTheme }: NavigationProps) => {
               <Button
                 onClick={() => scrollToSection('home')}
                 sx={{
-                  fontWeight: 700,
-                  fontSize: { xs: '1.25rem', md: '1.5rem' },
-                  background: 'linear-gradient(135deg, #00bcd4 0%, #3f51b5 100%)',
-                  backgroundClip: 'text',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  px: 2,
+                  px: 1.5,
                   py: 1,
                   borderRadius: 2,
-                  '&:hover': {
-                    bgcolor: mode === 'dark' ? 'rgba(0, 188, 212, 0.1)' : 'rgba(0, 188, 212, 0.05)',
-                  },
+                  '&:hover': { bgcolor: 'transparent' },
                 }}
               >
-                <Box
-                  component="span"
-                  sx={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: 1,
-                  }}
-                >
-                  <Box
+                <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                  <Typography
+                    component="span"
                     sx={{
-                      width: { xs: 32, md: 40 },
-                      height: { xs: 32, md: 40 },
-                      borderRadius: '50%',
+                      fontWeight: 800,
+                      letterSpacing: { xs: '.02em', md: '.04em' },
+                      fontSize: { xs: '1.1rem', md: '1.35rem' },
+                      lineHeight: 1,
                       background: 'linear-gradient(135deg, #00bcd4 0%, #3f51b5 100%)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      color: 'white',
-                      fontWeight: 700,
-                      fontSize: { xs: '0.875rem', md: '1rem' },
+                      backgroundClip: 'text',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      textTransform: 'uppercase',
                     }}
                   >
-                    SS
-                  </Box>
+                    Sandeep Sanwle
+                  </Typography>
                   {!isMobile && (
-                    <Typography
-                      component="span"
+                    <Box
                       sx={{
-                        display: { xs: 'none', sm: 'inline' },
-                        ml: 1,
+                        mt: 0.75,
+                        height: 3,
+                        width: 80,
+                        borderRadius: 2,
+                        background: 'linear-gradient(90deg, #00bcd4 0%, #3f51b5 100%)',
+                        boxShadow: '0 0 16px rgba(0, 188, 212, 0.5)',
                       }}
-                    >
-                      Sandeep Sanwle
-                    </Typography>
+                    />
                   )}
                 </Box>
               </Button>
             </motion.div>
 
-            <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 0.5, alignItems: 'center' }}>
+            <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap: 1.5 }}>
               {navItems.map((item) => (
                 <motion.div
                   key={item.label}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                  whileHover={{ y: -1 }}
+                  whileTap={{ scale: 0.98 }}
                 >
                   <Button
                     onClick={() => scrollToSection(item.href)}
                     sx={{
-                      color: activeSection === item.href ? 'primary.main' : 'text.primary',
-                      position: 'relative',
-                      fontWeight: activeSection === item.href ? 600 : 400,
-                      px: 2,
+                      textTransform: 'uppercase',
+                      letterSpacing: '.12em',
+                      fontWeight: activeSection === item.href ? 800 : 600,
+                      fontSize: '0.8rem',
+                      px: 1.5,
                       py: 1,
-                      borderRadius: 2,
-                      transition: 'all 0.3s ease',
+                      color: activeSection === item.href ? 'primary.main' : 'text.primary',
+                      transition: 'all 0.25s ease',
+                      borderRadius: 0,
+                      bgcolor: 'transparent',
                       '&:hover': {
                         color: 'primary.main',
-                        bgcolor: mode === 'dark' ? 'rgba(0, 188, 212, 0.1)' : 'rgba(0, 188, 212, 0.05)',
+                        bgcolor: 'transparent',
                       },
+                      position: 'relative',
                       '&::after': {
                         content: '""',
                         position: 'absolute',
-                        width: activeSection === item.href ? '60%' : '0%',
-                        height: '3px',
-                        bottom: 4,
                         left: '50%',
-                        background: 'linear-gradient(135deg, #00bcd4 0%, #3f51b5 100%)',
-                        borderRadius: '2px',
-                        transition: 'all 0.3s ease',
+                        bottom: 6,
                         transform: 'translateX(-50%)',
+                        height: 2,
+                        width: activeSection === item.href ? '70%' : '0%',
+                        background: 'linear-gradient(135deg, #00bcd4 0%, #3f51b5 100%)',
+                        transition: 'width 0.25s ease',
+                        borderRadius: 2,
+                      },
+                      '&:hover::after': {
+                        width: '70%',
                       },
                     }}
                   >
@@ -260,13 +293,11 @@ const Navigation = ({ mode, toggleTheme }: NavigationProps) => {
                   </Button>
                 </motion.div>
               ))}
-              
               <Box
                 component={motion.div}
                 whileHover={{ scale: 1.1, rotate: 180 }}
                 whileTap={{ scale: 0.9 }}
                 transition={{ type: 'spring', stiffness: 400 }}
-                sx={{ ml: 1 }}
               >
                 <IconButton
                   onClick={toggleTheme}
@@ -315,6 +346,39 @@ const Navigation = ({ mode, toggleTheme }: NavigationProps) => {
             </Box>
           </Toolbar>
         </Container>
+        {/* Decorative gradient glow for unique look */}
+        <Box
+          sx={{
+            position: 'absolute',
+            top: -40,
+            left: '10%',
+            right: '10%',
+            height: 80,
+            background: 'radial-gradient(50% 50% at 50% 50%, rgba(0,188,212,0.25) 0%, rgba(0,0,0,0) 70%)',
+            filter: 'blur(20px)',
+            pointerEvents: 'none',
+          }}
+        />
+        {/* Scroll progress bar */}
+        <Box
+          sx={{
+            position: 'absolute',
+            left: 0,
+            right: 0,
+            bottom: 0,
+            height: 3,
+            bgcolor: 'transparent',
+          }}
+        >
+          <Box
+            sx={{
+              height: '100%',
+              width: `${scrollProgress}%`,
+              background: 'linear-gradient(135deg, #00bcd4 0%, #3f51b5 100%)',
+              transition: 'width 0.15s ease-out',
+            }}
+          />
+        </Box>
       </AppBar>
 
       <Drawer
