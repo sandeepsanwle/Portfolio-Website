@@ -11,7 +11,7 @@ interface ContactFormData {
   message: string;
 }
 
-const SERVICE_ID = 'service_8e52vojj';
+const SERVICE_ID = 'service_8e52voj';
 const TEMPLATE_ID = 'template_0uexxfc';
 const PUBLIC_KEY = 'RFQ-cA1wT8sO58l-S';
 
