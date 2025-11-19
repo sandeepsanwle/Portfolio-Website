@@ -1,16 +1,21 @@
 import { Box, Container, Typography, Card, CardContent } from '@mui/material';
 import { motion } from 'framer-motion';
 import { Work } from '@mui/icons-material';
+import { useResponsiveAnimation } from '@/hooks/useResponsiveAnimation';
 
 const Experience = () => {
+  const { getAnimationProps } = useResponsiveAnimation();
+
   return (
     <Box id="experience" sx={{ py: 10, bgcolor: 'background.paper' }}>
       <Container maxWidth="lg">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          {...getAnimationProps({
+            initial: { opacity: 0, y: 30 },
+            whileInView: { opacity: 1, y: 0 },
+            viewport: { once: true },
+            transition: { duration: 0.6 }
+          })}
         >
           <Typography variant="h2" sx={{ mb: 6, textAlign: 'center' }}>
             Work Experience

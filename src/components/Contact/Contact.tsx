@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { Send } from '@mui/icons-material';
 import emailjs from '@emailjs/browser';
 import { toast } from 'sonner';
+import { useResponsiveAnimation } from '@/hooks/useResponsiveAnimation';
 
 interface ContactFormData {
   name: string;
@@ -22,6 +23,7 @@ const Contact = () => {
     reset,
     formState: { errors },
   } = useForm<ContactFormData>();
+  const { getAnimationProps } = useResponsiveAnimation();
 
   // const onSubmit = (data: ContactFormData) => {
   //   console.log('Form submitted:', data);
@@ -67,18 +69,22 @@ const Contact = () => {
 
       <Container maxWidth="md" sx={{ position: 'relative', zIndex: 1 }}>
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          {...getAnimationProps({
+            initial: { opacity: 0, y: 30 },
+            whileInView: { opacity: 1, y: 0 },
+            viewport: { once: true },
+            transition: { duration: 0.6 }
+          })}
         >
           {/* Header */}
           <Box sx={{ textAlign: 'center', mb: 6 }}>
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
+              {...getAnimationProps({
+                initial: { opacity: 0, scale: 0.9 },
+                whileInView: { opacity: 1, scale: 1 },
+                viewport: { once: true },
+                transition: { duration: 0.5 }
+              })}
             >
               <Typography
                 variant="h2"
@@ -95,10 +101,12 @@ const Contact = () => {
               </Typography>
             </motion.div>
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              {...getAnimationProps({
+                initial: { opacity: 0, y: 20 },
+                whileInView: { opacity: 1, y: 0 },
+                viewport: { once: true },
+                transition: { duration: 0.6, delay: 0.2 }
+              })}
             >
               <Typography
                 variant="body1"
@@ -112,10 +120,12 @@ const Contact = () => {
 
           {/* Form Card */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.3 }}
+            {...getAnimationProps({
+              initial: { opacity: 0, y: 30 },
+              whileInView: { opacity: 1, y: 0 },
+              viewport: { once: true },
+              transition: { duration: 0.6, delay: 0.3 }
+            })}
           >
             <Card
               sx={{
@@ -152,10 +162,12 @@ const Contact = () => {
                   <Grid container spacing={3}>
                     <Grid size={{ xs: 12, md: 6 }}>
                       <motion.div
-                        initial={{ opacity: 0, x: -20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.4, delay: 0.4 }}
+                        {...getAnimationProps({
+                          initial: { opacity: 0, x: -20 },
+                          whileInView: { opacity: 1, x: 0 },
+                          viewport: { once: true },
+                          transition: { duration: 0.4, delay: 0.4 }
+                        })}
                       >
                         <TextField
                           fullWidth
@@ -180,10 +192,12 @@ const Contact = () => {
 
                     <Grid size={{ xs: 12, md: 6 }}>
                       <motion.div
-                        initial={{ opacity: 0, x: 20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.4, delay: 0.5 }}
+                        {...getAnimationProps({
+                          initial: { opacity: 0, x: 20 },
+                          whileInView: { opacity: 1, x: 0 },
+                          viewport: { once: true },
+                          transition: { duration: 0.4, delay: 0.5 }
+                        })}
                       >
                         <TextField
                           fullWidth
@@ -215,10 +229,12 @@ const Contact = () => {
 
                     <Grid size={{ xs: 12 }}>
                       <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.4, delay: 0.6 }}
+                        {...getAnimationProps({
+                          initial: { opacity: 0, y: 20 },
+                          whileInView: { opacity: 1, y: 0 },
+                          viewport: { once: true },
+                          transition: { duration: 0.4, delay: 0.6 }
+                        })}
                       >
                         <TextField
                           fullWidth
@@ -245,12 +261,14 @@ const Contact = () => {
 
                     <Grid size={{ xs: 12 }}>
                       <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.4, delay: 0.7 }}
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
+                        {...getAnimationProps({
+                          initial: { opacity: 0, y: 20 },
+                          whileInView: { opacity: 1, y: 0 },
+                          viewport: { once: true },
+                          transition: { duration: 0.4, delay: 0.7 },
+                          whileHover: { scale: 1.02 },
+                          whileTap: { scale: 0.98 }
+                        })}
                       >
                         <Button
                           type="submit"
