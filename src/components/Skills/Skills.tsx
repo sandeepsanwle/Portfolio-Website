@@ -1,6 +1,7 @@
 import { Box, Container, Typography, Grid, Chip, Card, CardContent, useTheme } from '@mui/material';
 import { motion } from 'framer-motion';
 import { Code, Storage, Cloud } from '@mui/icons-material';
+import { useResponsiveAnimation } from '@/hooks/useResponsiveAnimation';
 
 interface Skill {
   name: string;
@@ -60,6 +61,7 @@ const skillCategories: SkillCategory[] = [
 const Skills = () => {
   const theme = useTheme();
   const isDark = theme.palette.mode === 'dark';
+  const { getAnimationProps } = useResponsiveAnimation();
 
   return (
     <Box id="skills" sx={{ py: 12, bgcolor: 'background.default', position: 'relative', overflow: 'hidden' }}>
@@ -80,17 +82,21 @@ const Skills = () => {
       
       <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          {...getAnimationProps({
+            initial: { opacity: 0, y: 30 },
+            whileInView: { opacity: 1, y: 0 },
+            viewport: { once: true },
+            transition: { duration: 0.6 }
+          })}
         >
           <Box sx={{ textAlign: 'center', mb: 8 }}>
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
+              {...getAnimationProps({
+                initial: { opacity: 0, scale: 0.9 },
+                whileInView: { opacity: 1, scale: 1 },
+                viewport: { once: true },
+                transition: { duration: 0.5 }
+              })}
             >
               <Typography
                 variant="h2"
@@ -107,10 +113,12 @@ const Skills = () => {
               </Typography>
             </motion.div>
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              {...getAnimationProps({
+                initial: { opacity: 0, y: 20 },
+                whileInView: { opacity: 1, y: 0 },
+                viewport: { once: true },
+                transition: { duration: 0.6, delay: 0.2 }
+              })}
             >
               <Typography
                 variant="body1"
@@ -126,11 +134,13 @@ const Skills = () => {
             {skillCategories.map((category, index) => (
               <Grid size={{ xs: 12, md: 4 }} key={category.title}>
                 <motion.div
-                  initial={{ opacity: 0, y: 50 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: index * 0.15 }}
-                  whileHover={{ y: -8 }}
+                  {...getAnimationProps({
+                    initial: { opacity: 0, y: 50 },
+                    whileInView: { opacity: 1, y: 0 },
+                    viewport: { once: true },
+                    transition: { duration: 0.6, delay: index * 0.15 },
+                    whileHover: { y: -8 }
+                  })}
                 >
                   <Card
                     sx={{
@@ -231,11 +241,13 @@ const Skills = () => {
                           {category.skills.map((skill, skillIndex) => (
                             <motion.div
                               key={skill.name}
-                              initial={{ opacity: 0, x: -20 }}
-                              whileInView={{ opacity: 1, x: 0 }}
-                              viewport={{ once: true }}
-                              transition={{ duration: 0.4, delay: index * 0.15 + skillIndex * 0.1 }}
-                              whileHover={{ scale: 1.02 }}
+                              {...getAnimationProps({
+                                initial: { opacity: 0, x: -20 },
+                                whileInView: { opacity: 1, x: 0 },
+                                viewport: { once: true },
+                                transition: { duration: 0.4, delay: index * 0.15 + skillIndex * 0.1 },
+                                whileHover: { scale: 1.02 }
+                              })}
                             >
                               <Box
                                 sx={{
@@ -277,15 +289,17 @@ const Skills = () => {
                                     return (
                                       <motion.div
                                         key={i}
-                                        initial={{ scale: 0 }}
-                                        whileInView={{ scale: 1 }}
-                                        viewport={{ once: true }}
-                                        transition={{
-                                          duration: 0.2,
-                                          delay: index * 0.15 + skillIndex * 0.1 + i * 0.02,
-                                          type: 'spring',
-                                          stiffness: 300,
-                                        }}
+                                        {...getAnimationProps({
+                                          initial: { scale: 0 },
+                                          whileInView: { scale: 1 },
+                                          viewport: { once: true },
+                                          transition: {
+                                            duration: 0.2,
+                                            delay: index * 0.15 + skillIndex * 0.1 + i * 0.02,
+                                            type: 'spring',
+                                            stiffness: 300,
+                                          }
+                                        })}
                                       >
                                         <Box
                                           sx={{
@@ -321,10 +335,12 @@ const Skills = () => {
 
           {/* Additional Skills Tags */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.5 }}
+            {...getAnimationProps({
+              initial: { opacity: 0, y: 30 },
+              whileInView: { opacity: 1, y: 0 },
+              viewport: { once: true },
+              transition: { duration: 0.6, delay: 0.5 }
+            })}
           >
             <Box sx={{ mt: 8, textAlign: 'center' }}>
               <Typography
@@ -345,11 +361,13 @@ const Skills = () => {
                   (tech, idx) => (
                     <motion.div
                       key={tech}
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.3, delay: 0.6 + idx * 0.05 }}
-                      whileHover={{ scale: 1.1, y: -2 }}
+                      {...getAnimationProps({
+                        initial: { opacity: 0, scale: 0.8 },
+                        whileInView: { opacity: 1, scale: 1 },
+                        viewport: { once: true },
+                        transition: { duration: 0.3, delay: 0.6 + idx * 0.05 },
+                        whileHover: { scale: 1.1, y: -2 }
+                      })}
                     >
                       <Chip
                         label={tech}
