@@ -1,10 +1,10 @@
 import { Box, Container, Typography, Button, Stack, CircularProgress } from '@mui/material';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Email, LinkedIn, Download } from '@mui/icons-material';
-import heroBg from '@/assets/hero-bg.jpg';
 import { useState, useEffect, useRef } from 'react';
 import confetti from 'canvas-confetti';
 import { useResponsiveAnimation } from '@/hooks/useResponsiveAnimation';
+import HeroBackground from './HeroBackground';
 
 const roles = [
   'Frontend Developer',
@@ -15,7 +15,11 @@ const roles = [
   'Full Stack Developer',
 ];
 
-const Hero = () => {
+interface HeroProps {
+  mode: 'light' | 'dark';
+}
+
+const Hero = ({ mode }: HeroProps) => {
   const [currentRole, setCurrentRole] = useState(0);
   const [isDownloading, setIsDownloading] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -87,13 +91,13 @@ const Hero = () => {
         display: 'flex',
         alignItems: 'center',
         position: 'relative',
-        background: `linear-gradient(135deg, rgba(10, 14, 39, 0.95) 0%, rgba(21, 25, 50, 0.9) 100%), url(${heroBg})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundAttachment: 'fixed',
+        overflow: 'hidden',
       }}
     >
-      <Container maxWidth="lg">
+      {/* Background Component */}
+      <HeroBackground mode={mode} />
+
+      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 2 }}>
         <motion.div
           {...getAnimationProps({
             initial: { opacity: 0, y: 50 },
