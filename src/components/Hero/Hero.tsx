@@ -1,9 +1,10 @@
 import { Box, Container, Typography, Button, Stack, CircularProgress } from '@mui/material';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Email, LinkedIn, Download } from '@mui/icons-material';
-import heroBg from '@/assets/hero-bg.jpg';
 import { useState, useEffect, useRef } from 'react';
 import confetti from 'canvas-confetti';
+import { useResponsiveAnimation } from '@/hooks/useResponsiveAnimation';
+import HeroBackground from './HeroBackground';
 
 const roles = [
   'Frontend Developer',
@@ -14,10 +15,15 @@ const roles = [
   'Full Stack Developer',
 ];
 
-const Hero = () => {
+interface HeroProps {
+  mode: 'light' | 'dark';
+}
+
+const Hero = ({ mode }: HeroProps) => {
   const [currentRole, setCurrentRole] = useState(0);
   const [isDownloading, setIsDownloading] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const { getAnimationProps } = useResponsiveAnimation();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -54,7 +60,8 @@ const Hero = () => {
       
       // Create a temporary link element
       const link = document.createElement('a');
-      link.href = 'https://drive.google.com/uc?export=download&id=1WdV-uLrUa3ojbXiL7j-sdFiUx0_0ov3S';
+      // Directly export the Google Doc as PDF
+      link.href = 'https://docs.google.com/document/d/1EYcg4xfE0_xGJ-hRyF0YrHIaiEBSnGPj/export?format=pdf';
       link.download = 'Sandeep_Sanwle_Resume.pdf';
       document.body.appendChild(link);
       link.click();
@@ -84,22 +91,26 @@ const Hero = () => {
         display: 'flex',
         alignItems: 'center',
         position: 'relative',
-        background: `linear-gradient(135deg, rgba(10, 14, 39, 0.95) 0%, rgba(21, 25, 50, 0.9) 100%), url(${heroBg})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundAttachment: 'fixed',
+        overflow: 'hidden',
       }}
     >
-      <Container maxWidth="lg">
+      {/* Background Component */}
+      <HeroBackground mode={mode} />
+
+      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 2 }}>
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          {...getAnimationProps({
+            initial: { opacity: 0, y: 50 },
+            animate: { opacity: 1, y: 0 },
+            transition: { duration: 0.8 }
+          })}
         >
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1, delay: 0.2 }}
+            {...getAnimationProps({
+              initial: { opacity: 0, x: -50 },
+              animate: { opacity: 1, x: 0 },
+              transition: { duration: 1, delay: 0.2 }
+            })}
           >
             <Typography
               variant="h1"
@@ -123,10 +134,12 @@ const Hero = () => {
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentRole}
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                exit={{ y: -20, opacity: 0 }}
-                transition={{ duration: 0.5 }}
+                {...getAnimationProps({
+                  initial: { y: 20, opacity: 0 },
+                  animate: { y: 0, opacity: 1 },
+                  exit: { y: -20, opacity: 0 },
+                  transition: { duration: 0.5 }
+                })}
               >
                 <Typography
                   variant="h4"
@@ -145,9 +158,11 @@ const Hero = () => {
           </Box>
           
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.4 }}
+            {...getAnimationProps({
+              initial: { opacity: 0, y: 20 },
+              animate: { opacity: 1, y: 0 },
+              transition: { duration: 1, delay: 0.4 }
+            })}
           >
             <Typography variant="body1" color="text.secondary" sx={{ mb: 4, maxWidth: 600, fontSize: '1.1rem' }}>
               Passionate software developer specializing in React, Angular, Node.js, and modern web technologies.
@@ -156,9 +171,11 @@ const Hero = () => {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.6 }}
+            {...getAnimationProps({
+              initial: { opacity: 0, y: 20 },
+              animate: { opacity: 1, y: 0 },
+              transition: { duration: 1, delay: 0.6 }
+            })}
           >
             <Stack direction="row" spacing={2} sx={{ mb: 4, flexWrap: 'wrap', gap: 2 }}>
               <motion.div 
@@ -239,9 +256,11 @@ const Hero = () => {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 0.8 }}
+            {...getAnimationProps({
+              initial: { opacity: 0 },
+              animate: { opacity: 1 },
+              transition: { duration: 1, delay: 0.8 }
+            })}
           >
             <Stack direction="row" spacing={2}>
               <motion.div 

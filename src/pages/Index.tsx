@@ -99,7 +99,7 @@ const Index = () => {
       <CssBaseline />
       <Box sx={{ bgcolor: 'background.default' }}>
         <Navigation mode={mode} toggleTheme={toggleTheme} />
-        <Hero />
+        <Hero mode={mode} />
         <Skills />
         <Experience />
         <Projects />

@@ -1,8 +1,11 @@
 import { Box, Container, Typography, IconButton, Stack, Divider } from '@mui/material';
 import { Email, LinkedIn, Phone, ArrowUpward } from '@mui/icons-material';
 import { motion } from 'framer-motion';
+import { useResponsiveAnimation } from '@/hooks/useResponsiveAnimation';
 
 const Footer = () => {
+  const { getAnimationProps } = useResponsiveAnimation();
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -46,10 +49,12 @@ const Footer = () => {
           >
             {/* Brand section */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
+              {...getAnimationProps({
+                initial: { opacity: 0, y: 20 },
+                whileInView: { opacity: 1, y: 0 },
+                viewport: { once: true },
+                transition: { duration: 0.5 }
+              })}
             >
               <Box sx={{ textAlign: { xs: 'center', md: 'left' } }}>
                 <Typography
@@ -73,10 +78,12 @@ const Footer = () => {
 
             {/* Social links */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 }}
+              {...getAnimationProps({
+                initial: { opacity: 0, y: 20 },
+                whileInView: { opacity: 1, y: 0 },
+                viewport: { once: true },
+                transition: { duration: 0.5, delay: 0.1 }
+              })}
             >
               <Box>
                 <Typography
@@ -170,10 +177,12 @@ const Footer = () => {
 
             {/* Back to top button */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.2 }}
+              {...getAnimationProps({
+                initial: { opacity: 0, y: 20 },
+                whileInView: { opacity: 1, y: 0 },
+                viewport: { once: true },
+                transition: { duration: 0.5, delay: 0.2 }
+              })}
             >
               <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <Typography
@@ -231,20 +240,24 @@ const Footer = () => {
             spacing={2}
           >
             <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.3 }}
+              {...getAnimationProps({
+                initial: { opacity: 0 },
+                whileInView: { opacity: 1 },
+                viewport: { once: true },
+                transition: { duration: 0.5, delay: 0.3 }
+              })}
             >
               <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.875rem' }}>
                 © {new Date().getFullYear()} Sandeep Sanwle. All rights reserved.
               </Typography>
             </motion.div>
             <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.4 }}
+              {...getAnimationProps({
+                initial: { opacity: 0 },
+                whileInView: { opacity: 1 },
+                viewport: { once: true },
+                transition: { duration: 0.5, delay: 0.4 }
+              })}
             >
               <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.875rem' }}>
                 Built with React, TypeScript & Material-UI

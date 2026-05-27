@@ -1,6 +1,7 @@
 import { Box, Container, Typography, Grid, Card, CardContent, Chip, Stack, Button, useTheme, useMediaQuery } from '@mui/material';
 import { motion } from 'framer-motion';
 import { Code } from '@mui/icons-material';
+import { useResponsiveAnimation } from '@/hooks/useResponsiveAnimation';
 
 const projects = [
   {
@@ -51,6 +52,7 @@ const Projects = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const isDark = theme.palette.mode === 'dark';
+  const { getAnimationProps } = useResponsiveAnimation();
 
   return (
     <Box
@@ -131,17 +133,21 @@ const Projects = () => {
 
       <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          {...getAnimationProps({
+            initial: { opacity: 0, y: 30 },
+            whileInView: { opacity: 1, y: 0 },
+            viewport: { once: true },
+            transition: { duration: 0.6 }
+          })}
         >
           <Box sx={{ textAlign: 'center', mb: { xs: 6, md: 10 } }}>
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
+              {...getAnimationProps({
+                initial: { opacity: 0, scale: 0.9 },
+                whileInView: { opacity: 1, scale: 1 },
+                viewport: { once: true },
+                transition: { duration: 0.5 }
+              })}
             >
               <Typography
                 variant="h2"
@@ -160,10 +166,12 @@ const Projects = () => {
               </Typography>
             </motion.div>
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              {...getAnimationProps({
+                initial: { opacity: 0, y: 20 },
+                whileInView: { opacity: 1, y: 0 },
+                viewport: { once: true },
+                transition: { duration: 0.6, delay: 0.2 }
+              })}
             >
               <Typography 
                 variant="body1" 
@@ -183,15 +191,17 @@ const Projects = () => {
             {projects.map((project, index) => (
               <Grid size={{ xs: 12, md: 6 }} key={project.title}>
                 <motion.div
-                  initial={{ opacity: 0, y: 50, scale: 0.95 }}
-                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ 
-                    duration: 0.6, 
-                    delay: index * 0.1,
-                    type: "spring",
-                    stiffness: 100,
-                  }}
+                  {...getAnimationProps({
+                    initial: { opacity: 0, y: 50, scale: 0.95 },
+                    whileInView: { opacity: 1, y: 0, scale: 1 },
+                    viewport: { once: true, margin: "-50px" },
+                    transition: { 
+                      duration: 0.6, 
+                      delay: index * 0.1,
+                      type: "spring",
+                      stiffness: 100,
+                    }
+                  })}
                   style={{ height: '100%' }}
                 >
                   <Card
@@ -304,11 +314,13 @@ const Projects = () => {
                         {project.technologies.map((tech, techIndex) => (
                           <motion.div
                             key={tech}
-                            initial={{ opacity: 0, scale: 0.8 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.3, delay: index * 0.1 + techIndex * 0.05 }}
-                            whileHover={{ scale: 1.1, y: -2 }}
+                            {...getAnimationProps({
+                              initial: { opacity: 0, scale: 0.8 },
+                              whileInView: { opacity: 1, scale: 1 },
+                              viewport: { once: true },
+                              transition: { duration: 0.3, delay: index * 0.1 + techIndex * 0.05 },
+                              whileHover: { scale: 1.1, y: -2 }
+                            })}
                           >
                             <Chip
                               label={tech}
@@ -358,10 +370,12 @@ const Projects = () => {
                         {project.responsibilities.map((resp, idx) => (
                           <motion.div
                             key={idx}
-                            initial={{ opacity: 0, x: -10 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.4, delay: index * 0.1 + idx * 0.1 }}
+                            {...getAnimationProps({
+                              initial: { opacity: 0, x: -10 },
+                              whileInView: { opacity: 1, x: 0 },
+                              viewport: { once: true },
+                              transition: { duration: 0.4, delay: index * 0.1 + idx * 0.1 }
+                            })}
                           >
                             <Typography
                               component="li"
