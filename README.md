@@ -53,6 +53,38 @@ The application will be available at `http://localhost:8080`
 - `npm run build:dev` - Build in development mode
 - `npm run preview` - Preview production build
 - `npm run lint` - Run ESLint
+- `npm run deploy` - Deploy `dist/` to GitHub Pages (branch: `gh-pages`)
+
+## Deploy (GitHub Pages)
+
+This project is already configured to deploy via the `gh-pages` package:
+
+- `predeploy`: runs `npm run build`
+- `deploy`: publishes `dist/` to the `gh-pages` branch
+
+### One-time GitHub setup
+
+1. Push your repo to GitHub.
+2. In GitHub, go to **Settings → Pages**.
+3. Under **Build and deployment**, select:
+   - **Source**: Deploy from a branch
+   - **Branch**: `gh-pages` / `(root)`
+
+### Deploy command
+
+```sh
+npm install
+npm run deploy
+```
+
+After the command finishes, GitHub Pages will serve the latest build.
+
+### If you change the repository name
+
+GitHub Pages for a project repo uses a path like `/<repo-name>/`. If your repo name changes, update:
+
+- `vite.config.ts` (`base`)
+- `package.json` (`homepage`)
 
 ## Project Structure
 
