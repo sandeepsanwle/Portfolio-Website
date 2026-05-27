@@ -60,8 +60,8 @@ const Hero = ({ mode }: HeroProps) => {
       
       // Create a temporary link element
       const link = document.createElement('a');
-      // link.href = 'https://drive.google.com/uc?export=download&id=1WdV-uLrUa3ojbXiL7j-sdFiUx0_0ov3S';
-      link.href = 'https://docs.google.com/document/d/1cumA-iZbIUGmQuk4lK0EnISt0ojIddK2WB2rFMfdUhA/export?format=pdf';
+      // Directly export the Google Doc as PDF
+      link.href = 'https://docs.google.com/document/d/1EYcg4xfE0_xGJ-hRyF0YrHIaiEBSnGPj/export?format=pdf';
       link.download = 'Sandeep_Sanwle_Resume.pdf';
       document.body.appendChild(link);
       link.click();
