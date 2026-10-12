@@ -57,16 +57,16 @@ const Hero = ({ mode }: HeroProps) => {
   const handleDownloadResume = async () => {
     try {
       setIsDownloading(true);
-      
+
       // Create a temporary link element
       const link = document.createElement('a');
       // Directly export the Google Doc as PDF
-      link.href = 'https://docs.google.com/document/d/1EYcg4xfE0_xGJ-hRyF0YrHIaiEBSnGPj/export?format=pdf';
+      link.href = 'https://docs.google.com/document/d/1pNSlfLVyPA_cI7r1S47cAUjRiF9R75TT/export?format=pdf';
       link.download = 'Sandeep_Sanwle_Resume.pdf';
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-      
+
       // Trigger confetti animation
       setTimeout(() => {
         setIsDownloading(false);
@@ -126,7 +126,7 @@ const Hero = ({ mode }: HeroProps) => {
               Sandeep Sanwle
             </Typography>
           </motion.div>
-          
+
           <Box sx={{ mb: 3, height: '3rem', display: 'flex', alignItems: 'center' }}>
             <Typography variant="h4" color="text.secondary" sx={{ mr: 1 }}>
               I'm a
@@ -156,7 +156,7 @@ const Hero = ({ mode }: HeroProps) => {
               </motion.div>
             </AnimatePresence>
           </Box>
-          
+
           <motion.div
             {...getAnimationProps({
               initial: { opacity: 0, y: 20 },
@@ -178,8 +178,8 @@ const Hero = ({ mode }: HeroProps) => {
             })}
           >
             <Stack direction="row" spacing={2} sx={{ mb: 4, flexWrap: 'wrap', gap: 2 }}>
-              <motion.div 
-                whileHover={{ scale: 1.05, y: -5 }} 
+              <motion.div
+                whileHover={{ scale: 1.05, y: -5 }}
                 whileTap={{ scale: 0.95 }}
                 transition={{ type: 'spring', stiffness: 400 }}
               >
@@ -198,9 +198,9 @@ const Hero = ({ mode }: HeroProps) => {
                   Get In Touch
                 </Button>
               </motion.div>
-              
-              <motion.div 
-                whileHover={{ scale: 1.05, y: -5 }} 
+
+              <motion.div
+                whileHover={{ scale: 1.05, y: -5 }}
                 whileTap={{ scale: 0.95 }}
                 transition={{ type: 'spring', stiffness: 400 }}
               >
@@ -220,8 +220,8 @@ const Hero = ({ mode }: HeroProps) => {
                 </Button>
               </motion.div>
 
-              <motion.div 
-                whileHover={{ scale: 1.05, y: -5 }} 
+              <motion.div
+                whileHover={{ scale: 1.05, y: -5 }}
                 whileTap={{ scale: 0.95 }}
                 transition={{ type: 'spring', stiffness: 400 }}
               >
@@ -263,7 +263,7 @@ const Hero = ({ mode }: HeroProps) => {
             })}
           >
             <Stack direction="row" spacing={2}>
-              <motion.div 
+              <motion.div
                 whileHover={{ scale: 1.15, rotate: 5 }}
                 whileTap={{ scale: 0.95 }}
                 transition={{ type: 'spring', stiffness: 400 }}
@@ -272,7 +272,7 @@ const Hero = ({ mode }: HeroProps) => {
                   component="a"
                   href="mailto:sandeepsanwle74@gmail.com"
                   startIcon={<Email />}
-                  sx={{ 
+                  sx={{
                     color: 'text.secondary',
                     '&:hover': {
                       color: 'primary.main',
@@ -282,8 +282,8 @@ const Hero = ({ mode }: HeroProps) => {
                   Email
                 </Button>
               </motion.div>
-              
-              <motion.div 
+
+              <motion.div
                 whileHover={{ scale: 1.15, rotate: -5 }}
                 whileTap={{ scale: 0.95 }}
                 transition={{ type: 'spring', stiffness: 400 }}
@@ -294,7 +294,7 @@ const Hero = ({ mode }: HeroProps) => {
                   target="_blank"
                   rel="noopener noreferrer"
                   startIcon={<LinkedIn />}
-                  sx={{ 
+                  sx={{
                     color: 'text.secondary',
                     '&:hover': {
                       color: 'primary.main',
